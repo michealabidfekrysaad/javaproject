@@ -4,6 +4,7 @@ let product=[];
 let details=[];
 let arrDisplay=[];
 let count=0;
+let countOfItemInCart=0;
 xhr.open('GET', URL,true);
 xhr.send();
 
@@ -15,6 +16,7 @@ xhr.onload = function() {
         console.log(`done onload fn, got ${xhr.response.length} bytes`)
         product= JSON.parse(xhr.response);
              product= product.ProductCollection;
+            //  console.log(product[0]);
              //hena masakt el array of object
              localStorage.setItem("arrayOfObject",JSON.stringify(product));
            display()
@@ -33,6 +35,7 @@ xhr.onload = function() {
     console.log(`Received ${event.loaded} of ${event.total}`);
   };
 
+
   function display (){
       for(let i=0;i<product.length;i++)
       {
@@ -46,7 +49,7 @@ xhr.onload = function() {
         link.setAttribute('href',`page2.html?`+product[i].ProductId+``);
         link.setAttribute('target','_blank');
        let price=document.createElement('p');
-        var btn=document.createElement('button');
+        let btn=document.createElement('button');
         div.appendChild(h4);
         div.appendChild(link);
         div.appendChild(price);
@@ -54,6 +57,8 @@ xhr.onload = function() {
         price.className="mr-5 ml-2 d-inline text-danger"
         btn.innerText="addtocart";
         btn.className="btn colorweb ml-auto";
+        btn.setAttribute("id",``+product[i].ProductId+`btn`)
+        // console.log(btn);
         btn.setAttribute('onclick',`cartFunction("`+product[i].ProductId+`")`);
         h4.innerHTML=product[i].Name;
         image.setAttribute('src',product[i].ProductPicUrl);
@@ -66,23 +71,52 @@ xhr.onload = function() {
   }
   
 function cartFunction (id){
-    
+  let btn =document.querySelector(`#`+id+`btn`);
+  btn.disabled = 'disabled';
+  btn.innerHTML="Done";
+ let spanCount=$(".icon-bar span")[0];
+ let spanPrice=$(".icon-bar span")[1];
+ console.log(spanPrice);
+ console.log(+spanCount.textContent);
+ let countToShow=++countOfItemInCart;
+ spanCount.innerHTML=countToShow;
+ // ana hena gebt el count beta3 el product w 7ashof as3arhom w agmaa3ha
+// w a3redha w a5azenhom fe el local storage 3ashan el 7agat teb2a mazbota 3andy
+
+
+  if(localStorage.getItem("cart")==null)
+    {
+        details=[];
+        rightcart();
+    }
+else
+    {
+        details=JSON.parse(localStorage.getItem("cart"));
+         console.log(details);
+        rightcart();
+    }
+
+    function rightcart (){
     for(let i=0;i<product.length;i++){
         if(product[i].ProductId == id){
             let objDetails={
                 name:product[i].Name,
                 image:product[i].ProductPicUrl,
                 price:product[i].Price,
+                id:product[i].ProductId,
+                Quantity:product[i].Quantity,
                 number:++count
             }
             details.push(objDetails);
-              console.log(details);
+              // console.log(details);
         }
         
     }
     details.forEach(function(details){
-        console.log("for each fn"+details.number);
+        // console.log("for each click"+details.number);
       });
+      localStorage.setItem('cart', JSON.stringify(details));
+    }
 }
 
 
