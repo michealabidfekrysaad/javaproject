@@ -3,7 +3,25 @@ let xhr = new XMLHttpRequest();
 let product=[];
 let details=[];
 let arrDisplay=[];
+let x=0;
 let count=0;
+
+// let countOfItemInCart=0;
+let sumInCart=0;
+// let arrayOfCart=[];
+let arrayOfCart=JSON.parse(localStorage.getItem("miniCart"));
+let div=document.getElementsByClassName("icon-bar");
+
+if(arrayOfCart == null){
+  arrayOfCart=[0,0];
+}
+let spanCount=$(".icon-bar span")[0];
+let spanPrice=$(".icon-bar span")[1];
+if(arrayOfCart.length > 0 ){
+  spanCount.innerHTML= arrayOfCart[0]; //hena ba3red 3addad el montagat 3ala el shasha
+  spanPrice.innerHTML = arrayOfCart[1] + " $"; //ba3red as3arhom
+
+}
 xhr.open('GET', URL,true);
 xhr.send();
 
@@ -15,9 +33,11 @@ xhr.onload = function() {
         console.log(`done onload fn, got ${xhr.response.length} bytes`)
         product= JSON.parse(xhr.response);
              product= product.ProductCollection;
+            //  console.log(product[0]);
              //hena masakt el array of object
              localStorage.setItem("arrayOfObject",JSON.stringify(product));
-           display()
+           
+               display()
            
     }
   };
@@ -33,6 +53,7 @@ xhr.onload = function() {
     console.log(`Received ${event.loaded} of ${event.total}`);
   };
 
+
   function display (){
       for(let i=0;i<product.length;i++)
       {
@@ -44,16 +65,18 @@ xhr.onload = function() {
         link.appendChild(image);
         // image.setAttribute('onclick',`productFunction("`+product[i].ProductId+`")`);
         link.setAttribute('href',`page2.html?`+product[i].ProductId+``);
-        link.setAttribute('target','_blank');
+        // link.setAttribute('target','_blank');
        let price=document.createElement('p');
-        var btn=document.createElement('button');
+        let btn=document.createElement('button');
         div.appendChild(h4);
         div.appendChild(link);
         div.appendChild(price);
         div.appendChild(btn);
         price.className="mr-5 ml-2 d-inline text-danger"
-        btn.innerText="addtocart";
+        btn.innerText="Add To Cart";
         btn.className="btn colorweb ml-auto";
+        btn.setAttribute("id",``+product[i].ProductId+`btn`)
+        // console.log(btn);
         btn.setAttribute('onclick',`cartFunction("`+product[i].ProductId+`")`);
         h4.innerHTML=product[i].Name;
         image.setAttribute('src',product[i].ProductPicUrl);
@@ -65,43 +88,54 @@ xhr.onload = function() {
       } 
   }
   
+
+
 function cartFunction (id){
-    
+  let btn =document.querySelector(`#`+id+`btn`);
+  btn.disabled = 'disabled';
+  btn.innerHTML="Done";
+  let countOfItemInCart=0;
+ let countToShow=++countOfItemInCart;
+
+
+
+  if(localStorage.getItem("cart")==null)
+    {
+        details=[];
+        console.log("this is"+typeof(details));
+
+        rightcart();
+    }
+else
+    {
+        details=JSON.parse(localStorage.getItem("cart"));
+          console.log("this is else"+details);
+        rightcart();
+    }
+
+    function rightcart (){
     for(let i=0;i<product.length;i++){
         if(product[i].ProductId == id){
             let objDetails={
                 name:product[i].Name,
                 image:product[i].ProductPicUrl,
                 price:product[i].Price,
-                number:++count
+                id:product[i].ProductId,
+                Quantity:product[i].Quantity,
+                number:1
             }
             details.push(objDetails);
-              console.log(details);
+            x =arrayOfCart[1]+(product[i].Price);
+            console.log(x);
+            count=arrayOfCart[0]+1;
+            arrayOfCart=[count,x];
+            localStorage.setItem("miniCart",JSON.stringify(arrayOfCart));
+            spanCount.innerHTML=arrayOfCart[0]; //hena ba3red 3addad el montagat 3ala el shasha
+            spanPrice.innerHTML = arrayOfCart[1]+" $"; //hena ba3red as3ar el montagat 3ala el shasha
+
         }
         
     }
-    details.forEach(function(details){
-        console.log("for each fn"+details.number);
-      });
+      localStorage.setItem('cart', JSON.stringify(details));
+    }
 }
-
-
-// function  productFunction(id){
-//     for(let i=0;i<product.length;i++){
-//         if(product[i].ProductId == id){
-//             let objDisblay={
-//                 name:product[i].Name,
-//                 image:product[i].ProductPicUrl,
-//                 price:product[i].Price,
-//             }
-//             // arrDisplay.push(objDisblay);
-//             //fe arrDisplay 3ayez amsa7o malhosh lazma fo2 5ales
-//               console.log(objDisblay.price);
-//               $("#imgShow").attr('src',objDisblay.image)
-//               $("#h1Price").text("price is:"+objDisblay.price)
-//         }
-        
-//     }
-
-
-//}

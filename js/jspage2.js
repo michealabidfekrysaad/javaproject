@@ -1,4 +1,11 @@
-
+    let arrayOfCart=JSON.parse(localStorage.getItem("miniCart"));
+    if(arrayOfCart == null){
+      arrayOfCart=[0,0];
+    } 
+    let details=[];
+    let count=0;
+    // console.log("dd"+miniCart[0]);
+    
     var queryString = decodeURIComponent(window.location.search);
     queryString = queryString.substring(1);
     var queries = queryString.split("&");
@@ -21,7 +28,9 @@
           price: users[i].Price,
           width:users[i].Width,
           height:users[i].Height,
-          Status:users[i].Status
+          Status:users[i].Status,
+          id:specificId,
+          Quantity:users[i].Quantity
         }
         //hena ana masek el product ale ana 3amalt 3aleh click 3ashan ashof el details beta3to
         break;
@@ -101,13 +110,75 @@
     input.className="form-control";
     input.setAttribute("type","number");
     input.setAttribute("min","1");
+    input.setAttribute("id", `` + specificItem.id + ``);
+    input.setAttribute("max", `` + specificItem.Quantity + ``);
+    input.setAttribute("onkeyup", `inputChange("` + specificItem.id + `")`)
+
     divCardBody.append(input);
     a=document.createElement('a');
     // console.log(a);
-    a.setAttribute("href","index.html");
-    a.setAttribute("target","_blank");
+    // a.setAttribute("target","_blank");
+    a.setAttribute("href","cart.html");
     a.className="btn btn-outline-primary mt-3 text-center";
+    a.setAttribute('onclick',`addToCart("`+specificItem.id+`")`);
     a.innerHTML="Add To Cart";
     divCardBody.append(a);
     div3.append(divCard);
 
+function addToCart(id){
+  console.log("inside toCart"+id);
+  let input = document.querySelector(`#` + id + ``);
+  let inputValue = + input.value;
+  if(inputValue == "")inputValue=1;
+  console.log("value inside input is: "+inputValue)
+  if(localStorage.getItem("cart")==null)
+  {
+      details=[];
+  }
+else
+  {
+      details=JSON.parse(localStorage.getItem("cart"));
+  }
+ let obj = {
+    name: specificItem.name,
+    image: specificItem.image,
+    price:specificItem.price,
+    id:specificId,
+    Quantity:specificItem.Quantity,
+    number:inputValue
+  }
+  details.push(obj);
+  // console.log(details);
+  x =arrayOfCart[1]+(obj.price);
+  count=arrayOfCart[0]+1;
+  arrayOfCart=[count,x];
+  localStorage.setItem("miniCart",JSON.stringify(arrayOfCart));
+  console.log(arrayOfCart);
+  localStorage.setItem('cart', JSON.stringify(details));
+  a.disabled = 'disabled';
+  a.innerHTML="Added To Cart";
+
+}
+
+
+
+function inputChange(id){
+  
+  let input = document.querySelector(`#` + id + ``);
+  let inputValue = + input.value;
+  // let pTotal = document.querySelector(`#total` + i + ``);
+  // let pPrice = document.querySelector(`#price` + i + ``).innerHTML;
+  // var result = pPrice.split(" ");
+  let maxInput = input.max;
+  if (inputValue > maxInput) {
+      alert(`your maximum quantity of this product is ` + maxInput + ` not ` + inputValue  );
+      input.value = maxInput;
+      // pTotal.innerHTML = `$ ` + input.value * (+result[1]) + ``;
+
+  }
+  else if (inputValue == 0) {
+      input.value = "";
+      // pTotal.innerHTML = `$ ` + (+result[1]) + ``;
+  }
+
+}

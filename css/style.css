@@ -2,7 +2,6 @@
     background-color:rgba(154, 219, 22, 0.9); 
 }
 
-
 .icon-bar {
     position: fixed;
     top: 50%;
@@ -10,12 +9,49 @@
     border-radius: 9px;
     cursor: cell;
   }
-  
 
+.flex-container{
+    display: flex;
+    justify-content: space-around;
 
-.showDetails {
-    /* display: none; */
-    background-color: red;
-    position: fixed;
-    top: 50px;
 }
+
+/* div beta3et el total fe el cart */
+.total{
+    float: right;
+    width:400px;
+    /* height: 100px; */
+}
+.total hr {
+    background-color: #555;
+    /* border: 1px solid #555; */
+    /* display: block; */
+    height: 4px;
+    /* overflow: visible; */
+    /* position: relative; */
+    width: 100%;
+}
+
+
+.total hr:before {
+    background-color:rgba(154, 219, 22, 0.9);
+    content: '';
+    display: block;
+    height: 5px;
+    left: 0;
+    /* position: absolute; */
+    top: -2px;
+    width: 30%;
+    z-index: 1;
+}
+/* end of div total fe el cart */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance:textfield;
+  }
+  /* hide arrow of input */
