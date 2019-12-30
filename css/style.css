@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .colorweb{
     background-color:rgba(154, 219, 22, 0.9); 
 }
@@ -56,52 +55,3 @@ input[type=number] {
     -moz-appearance:textfield;
   }
   /* hide arrow of input */
-=======
-.colorweb{
-    background-color:rgba(154, 219, 22, 0.9); 
-}
-
-.icon-bar {
-    position: fixed;
-    top: 50%;
-    right: 5px;
-    border-radius: 9px;
-    cursor: cell;
-  }
-
-.flex-container{
-    display: flex;
-    justify-content: space-around;
-
-}
-
-/* div beta3et el total fe el cart */
-.total{
-    float: right;
-    width:400px;
-    /* height: 100px; */
-}
-.total hr {
-    background-color: #555;
-    /* border: 1px solid #555; */
-    /* display: block; */
-    height: 4px;
-    /* overflow: visible; */
-    /* position: relative; */
-    width: 100%;
-}
-
-
-.total hr:before {
-    background-color:rgba(154, 219, 22, 0.9);
-    content: '';
-    display: block;
-    height: 5px;
-    left: 0;
-    /* position: absolute; */
-    top: -2px;
-    width: 30%;
-    z-index: 1;
-}
-/* end of div total fe el cart */
->>>>>>> eb42ce6446ccc111d11eab62e1ec71997b84d52c
