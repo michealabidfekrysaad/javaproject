@@ -1,10 +1,28 @@
+
 let URL ="https://gist.githubusercontent.com/a7med-hussien/7fc3e1cba6abf92460d69c0437ce8460/raw/da46abcedf99a3d2bef93a322641926ff60db3c3/products.json";
 let xhr = new XMLHttpRequest();
 let product=[];
 let details=[];
 let arrDisplay=[];
+let x=0;
 let count=0;
-let countOfItemInCart=0;
+
+// let countOfItemInCart=0;
+let sumInCart=0;
+// let arrayOfCart=[];
+let arrayOfCart=JSON.parse(localStorage.getItem("miniCart"));
+let div=document.getElementsByClassName("icon-bar");
+
+if(arrayOfCart == null){
+  arrayOfCart=[0,0];
+}
+let spanCount=$(".icon-bar span")[0];
+let spanPrice=$(".icon-bar span")[1];
+if(arrayOfCart.length > 0 ){
+  spanCount.innerHTML= arrayOfCart[0]; //hena ba3red 3addad el montagat 3ala el shasha
+  spanPrice.innerHTML = arrayOfCart[1] + " $"; //ba3red as3arhom
+
+}
 xhr.open('GET', URL,true);
 xhr.send();
 
@@ -19,7 +37,8 @@ xhr.onload = function() {
             //  console.log(product[0]);
              //hena masakt el array of object
              localStorage.setItem("arrayOfObject",JSON.stringify(product));
-           display()
+           
+               display()
            
     }
   };
@@ -47,7 +66,7 @@ xhr.onload = function() {
         link.appendChild(image);
         // image.setAttribute('onclick',`productFunction("`+product[i].ProductId+`")`);
         link.setAttribute('href',`page2.html?`+product[i].ProductId+``);
-        link.setAttribute('target','_blank');
+        // link.setAttribute('target','_blank');
        let price=document.createElement('p');
         let btn=document.createElement('button');
         div.appendChild(h4);
@@ -55,7 +74,7 @@ xhr.onload = function() {
         div.appendChild(price);
         div.appendChild(btn);
         price.className="mr-5 ml-2 d-inline text-danger"
-        btn.innerText="addtocart";
+        btn.innerText="Add To Cart";
         btn.className="btn colorweb ml-auto";
         btn.setAttribute("id",``+product[i].ProductId+`btn`)
         // console.log(btn);
@@ -70,29 +89,28 @@ xhr.onload = function() {
       } 
   }
   
+
+
 function cartFunction (id){
   let btn =document.querySelector(`#`+id+`btn`);
   btn.disabled = 'disabled';
   btn.innerHTML="Done";
- let spanCount=$(".icon-bar span")[0];
- let spanPrice=$(".icon-bar span")[1];
- console.log(spanPrice);
- console.log(+spanCount.textContent);
+  let countOfItemInCart=0;
  let countToShow=++countOfItemInCart;
- spanCount.innerHTML=countToShow;
- // ana hena gebt el count beta3 el product w 7ashof as3arhom w agmaa3ha
-// w a3redha w a5azenhom fe el local storage 3ashan el 7agat teb2a mazbota 3andy
+
 
 
   if(localStorage.getItem("cart")==null)
     {
         details=[];
+        console.log("this is"+typeof(details));
+
         rightcart();
     }
 else
     {
         details=JSON.parse(localStorage.getItem("cart"));
-         console.log(details);
+          console.log("this is else"+details);
         rightcart();
     }
 
@@ -105,37 +123,20 @@ else
                 price:product[i].Price,
                 id:product[i].ProductId,
                 Quantity:product[i].Quantity,
-                number:++count
+                number:1
             }
             details.push(objDetails);
-              // console.log(details);
+            x =arrayOfCart[1]+(product[i].Price);
+            console.log(x);
+            count=arrayOfCart[0]+1;
+            arrayOfCart=[count,x];
+            localStorage.setItem("miniCart",JSON.stringify(arrayOfCart));
+            spanCount.innerHTML=arrayOfCart[0]; //hena ba3red 3addad el montagat 3ala el shasha
+            spanPrice.innerHTML = arrayOfCart[1]+" $"; //hena ba3red as3ar el montagat 3ala el shasha
+
         }
         
     }
-    details.forEach(function(details){
-        // console.log("for each click"+details.number);
-      });
       localStorage.setItem('cart', JSON.stringify(details));
     }
 }
-
-
-// function  productFunction(id){
-//     for(let i=0;i<product.length;i++){
-//         if(product[i].ProductId == id){
-//             let objDisblay={
-//                 name:product[i].Name,
-//                 image:product[i].ProductPicUrl,
-//                 price:product[i].Price,
-//             }
-//             // arrDisplay.push(objDisblay);
-//             //fe arrDisplay 3ayez amsa7o malhosh lazma fo2 5ales
-//               console.log(objDisblay.price);
-//               $("#imgShow").attr('src',objDisblay.image)
-//               $("#h1Price").text("price is:"+objDisblay.price)
-//         }
-        
-//     }
-
-
-//}
