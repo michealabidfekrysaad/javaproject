@@ -54,13 +54,25 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield;
   }
-  /* hide arrow of input */
 
-  /* li:hover {
-    font-weight: bolder;
-    font-size: 18px;
-  } */
   li a:hover { 
     font-weight: bolder;
     font-size: 15px;
     color:white !important; }
+    /* styling of about page  */
+
+
+.m{
+  filter: grayscale(60%);
+}
+
+.flood
+{
+  background-image:url(../images/work.jpg);
+  min-height: 600px;
+  color: rgb(225, 225, 226);
+  /* text-transform: uppercase; */
+  width: 100%;
+  text-shadow: 10px 10px 20px black;
+
+}
