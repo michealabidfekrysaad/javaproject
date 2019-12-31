@@ -17,23 +17,25 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto font-weight-bold ">
+          <ul id="myUl" class="navbar-nav mx-auto font-weight-bold ">
             <li class="nav-item mx-3">
               <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item mx-3">
               <a class="nav-link" href="#">About Us</a>
             </li>
-            <li class="nav-item mx-3">
+            <li class="nav-item active mx-3">
                 <a class="nav-link" href="#">Contact Us</a>
               </li>
           </ul>
         </div>
+        
       </nav>
 <section class="container mb-4">
     <h2 class="h1-responsive font-weight-bold text-left my-4">Leave us a Message</h2>
 <hr>
-<canvas id="DemoCanvas" width="500" height="200" style="position: absolute; bottom: 302px;"></canvas>
+<!-- <canvas id="DemoCanvas" width="500" height="200" 
+style="position: absolute; bottom: 302px;"></canvas> -->
     <p class="text-center w-responsive mx-auto mb-4">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
         a matter of hours to help you.</p>
                 <div class="row">
@@ -82,16 +84,17 @@
 
 <script>  
 var canvas = document.getElementById('DemoCanvas');
-if (canvas.getContext) 
- {
-  var context = canvas.getContext('2d');
-  context.beginPath(); 
-   context.moveTo(1,20);
-  context.lineTo(200,20);
-  context.strokeStyle = 'yellow';
-  context.lineWidth = 3;
-  context.stroke();
-   }
+// if (canvas.getContext) 
+//  {
+//   var context = canvas.getContext('2d');
+//   context.beginPath(); 
+//    context.moveTo(1,20);
+//   context.lineTo(200,20);
+//   context.strokeStyle = 'yellow';
+//   context.lineWidth = 3;
+//   context.stroke();
+//    }
+
 </script>
 <!-- <script src="../js/jquery-3.4.1.slim.min.js"></script> -->
 <script src="../js/jquery-3.3.1.slim.min.js"></script>

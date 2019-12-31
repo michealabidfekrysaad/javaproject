@@ -22,7 +22,7 @@
     width:400px;
     /* height: 100px; */
 }
-.total hr {
+.total hr, .container.mb-4 hr {
     background-color: #555;
     /* border: 1px solid #555; */
     /* display: block; */
@@ -33,15 +33,15 @@
 }
 
 
-.total hr:before {
+.total hr:before , .container.mb-4 hr:before {
     background-color:rgba(154, 219, 22, 0.9);
     content: '';
     display: block;
     height: 5px;
-    left: 0;
+    left: 20px;
     /* position: absolute; */
     top: -2px;
-    width: 30%;
+    width: 27%;
     z-index: 1;
 }
 /* end of div total fe el cart */
@@ -55,3 +55,12 @@ input[type=number] {
     -moz-appearance:textfield;
   }
   /* hide arrow of input */
+
+  /* li:hover {
+    font-weight: bolder;
+    font-size: 18px;
+  } */
+  li a:hover { 
+    font-weight: bolder;
+    font-size: 15px;
+    color:white !important; }

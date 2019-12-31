@@ -18,12 +18,12 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto font-weight-bold ">
-            <li class="nav-item mx-3">
-              <a class="nav-link" href="#">Home</a>
+          <ul id ="myUl" class="navbar-nav mx-auto font-weight-bold ">
+            <li class="nav-item active mx-3">
+              <a class="nav-link " href="#">Home</a>
             </li>
-            <li class="nav-item mx-3">
-              <a class="nav-link" href="#">About Us</a>
+            <li class="nav-item  mx-3">
+              <a class="nav-link  " href="#">About Us</a>
             </li>
             <li class="nav-item mx-3">
                 <a class="nav-link" href="Contact Us.html">Contact Us</a>
@@ -31,8 +31,15 @@
           </ul>
         </div>
       </nav>
-    <div class="container mt-3 mb-3">
-        <div class="row p-2">
+      <!-- <h5 class="text-center">search about your favourite items:</h5> -->
+      <div class="mx-auto w-50 my-3 sticky-top">
+        
+        <input class="form-control " style="border:2px solid rgba(154, 219, 22, 0.9);" 
+        type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by price or item name . . . ">
+      </div>
+
+    <div class="container">
+        <div id="myrow" class="row p-2">
             
         </div>
     </div>
@@ -42,12 +49,12 @@
        <span class="font-weight-bold">price</span>
       </div>
 
-
+<!-- 
       <div class="showDetails">
           <img id="imgShow" class="img-fluid" src=""/>
           <h1 id="h1Price"></h1>
 
-      </div>
+      </div> -->
 
 
     <script src="../js/popper.min.js"></script>

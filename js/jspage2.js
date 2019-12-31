@@ -25,7 +25,7 @@
           name: users[i].Name,
           image: users[i].ProductPicUrl,
           descripe: users[i].Description,
-          price: users[i].Price,
+          price: Math.floor(users[i].Price),
           width:users[i].Width,
           height:users[i].Height,
           Status:users[i].Status,
@@ -67,7 +67,7 @@
     p.innerHTML=specificItem.descripe;
     p1.innerHTML="width is: "+specificItem.width+" mm";
     p3.innerHTML=" height is: "+specificItem.height+" mm";
-    p2.innerHTML="item price is: "+specificItem.price+" $";
+    p2.innerHTML="item price is: "+Math.floor(specificItem.price)+" $";
     p.appendChild(p1);
     p.appendChild(p3);
     p.appendChild(p2);   
@@ -98,7 +98,7 @@
     p2Card=document.createElement('p');
     p2Card.className="card-text font-weight-bold";
     p2Card.setAttribute("style","font-size:30px");
-    p2Card.innerHTML="$ "+specificItem.price;
+    p2Card.innerHTML="$ "+ Math.floor(specificItem.price);
     divCardBody.append(p2Card);
     // divCardBody.append(hr)
     p3Card=document.createElement('p');
@@ -118,6 +118,7 @@
     a=document.createElement('a');
     // console.log(a);
     // a.setAttribute("target","_blank");
+
     a.setAttribute("href","cart.html");
     a.className="btn btn-outline-primary mt-3 text-center";
     a.setAttribute('onclick',`addToCart("`+specificItem.id+`")`);
@@ -142,14 +143,14 @@ else
  let obj = {
     name: specificItem.name,
     image: specificItem.image,
-    price:specificItem.price,
+    price:Math.floor(specificItem.price),
     id:specificId,
     Quantity:specificItem.Quantity,
     number:inputValue
   }
   details.push(obj);
   // console.log(details);
-  x =arrayOfCart[1]+(obj.price);
+  x =arrayOfCart[1]+(obj.price*obj.number);
   count=arrayOfCart[0]+1;
   arrayOfCart=[count,x];
   localStorage.setItem("miniCart",JSON.stringify(arrayOfCart));
@@ -166,13 +167,13 @@ function inputChange(id){
   
   let input = document.querySelector(`#` + id + ``);
   let inputValue = + input.value;
-  // let pTotal = document.querySelector(`#total` + i + ``);
-  // let pPrice = document.querySelector(`#price` + i + ``).innerHTML;
-  // var result = pPrice.split(" ");
+
   let maxInput = input.max;
   if (inputValue > maxInput) {
+     input.value = maxInput;
+     inputValue=maxInput
       alert(`your maximum quantity of this product is ` + maxInput + ` not ` + inputValue  );
-      input.value = maxInput;
+      
       // pTotal.innerHTML = `$ ` + input.value * (+result[1]) + ``;
 
   }

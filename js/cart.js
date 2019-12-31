@@ -1,17 +1,15 @@
 let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 let miniCart = JSON.parse(localStorage.getItem("miniCart") || "[]");
-console.log(typeof (miniCart));
-console.log(typeof (cart));
 let valueOfTotal=0;
 
 window.onload = () => {
     display(0);
     let totalPrice = document.querySelector('#totalPrice');
     for (i = 0; i < cart.length; i++) {
-        console.log(cart[i].price * cart[i].number);
+        // console.log(cart[i].price * cart[i].number);
         valueOfTotal +=cart[i].price * cart[i].number;
     }
-    totalPrice.innerHTML="$ "+valueOfTotal;
+    totalPrice.innerHTML="$ "+Math.floor(valueOfTotal);
 }
 function display(remove) {
 
@@ -20,9 +18,9 @@ function display(remove) {
         // elem.parentNode.removeChild(elem);
         // console.log(elem.parentNode.removeChild(elem));
         elem.innerHTML = "";
+        console.log("inside the truw remove of the fn to chage  "+miniCart[1]);
     }
     for (let i = 0; i < cart.length; i++) {
-        // console.log(cart.length)
         let row = document.getElementById("row");
         let image = document.createElement("img");
         let pName = document.createElement('p');
@@ -51,7 +49,7 @@ function display(remove) {
         // image.className="";
         pName.innerHTML = cart[i].name;
         pName.className = " pl-1 d-none d-sm-inline";
-        pPrice.innerHTML = "$ " + cart[i].price;
+        pPrice.innerHTML = "$ " + Math.floor(cart[i].price);
         pPrice.className = "text-danger font-weight-bold pt-3";
         pPrice.setAttribute("id", `price` + i + ``);
         input.setAttribute("type", "number");
@@ -61,7 +59,7 @@ function display(remove) {
         input.setAttribute("onkeyup", `inputChange("` + cart[i].id + `","` + i + `")`)
         input.setAttribute("value",``+cart[i].number+``)
         input.className = "rounded mt-3 ml-3  w-75 text-left";
-        pTotal.innerHTML = "$ " + (cart[i].price * cart[i].number );
+        pTotal.innerHTML = "$ " + (Math.floor(cart[i].price) * cart[i].number );
         pTotal.className = "font-weight-bold pt-3";
         pTotal.setAttribute("id", `total` + i + ``)
         btnDel.className = "btn btn-outline-danger mt-2 ";
@@ -91,13 +89,13 @@ function del(id) {
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].id == id) {
             // delete cart[i];
-            priceOfItem = cart[i].price;
+            priceOfItem = Math.floor(cart[i].price);
             console.log("price of single removed item: " + cart[i].price);
             cart.splice(i, 1);
             let x=totalPrice.innerHTML;
             var split = x.split(" ");
             console.log("in delete "+split[1]);
-            totalPrice.innerHTML="$ "+((+split[1])-priceOfItem);
+            totalPrice.innerHTML="$ "+Math.floor((+split[1])-priceOfItem);
              let u = document.querySelector(`#total` + i + ``).innerHTML;
              var split2 = u.split(" ");
             console.log("item * number "+split2[1]);
@@ -110,12 +108,13 @@ function del(id) {
     let removeNumCart = miniCart[0] - 1;
     console.log(miniCart[1]+" -- "+ split2[1])
     let removePriceCart = miniCart[1] - split2[1];
+    
 
-    console.log(" number remove from miniCart "+removePriceCart);
-    miniCart = [removeNumCart, removePriceCart]
+    console.log(" number keep in the miniCart "+removePriceCart);
+    miniCart = [removeNumCart,removePriceCart]
     localStorage.setItem("miniCart", JSON.stringify(miniCart));
     console.log(miniCart);
-    totalPrice.innerHTML="$ "+miniCart[1];
+    totalPrice.innerHTML="$ "+Math.floor(miniCart[1]);
 
     display(remove);
 }
@@ -150,9 +149,11 @@ function inputChange(id, i) {
         sum += (+split[1]);
         // console.log(sum);
         // console.log("no of items "+miniCart[0]);
+        
         miniCart = [miniCart[0], sum]
         localStorage.setItem("miniCart", JSON.stringify(miniCart));
-        totalPrice.innerHTML ="$ "+ sum;
+        
+        totalPrice.innerHTML ="$ "+ Math.floor(sum);
 
     }
 
