@@ -45,3 +45,26 @@
     z-index: 1;
 }
 /* end of div total fe el cart */
+
+/* styling of about page  */
+#one{
+    margin-top: 500px;
+    font-weight: bold;
+    z-index: 100;
+    color: rgb(104, 104, 104);
+    text-shadow:5px 5px 10px grey;
+    text-shadow:10px 10px 20px black;
+  }
+  
+  #two{
+    position: absolute;
+    /* width: 300px; */
+    top: 0;
+    left: 0;
+    z-index: -100;
+    opacity: 0.8;  
+    
+  } 
+  .m{
+    filter: grayscale(60%);
+  }
